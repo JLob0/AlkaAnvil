@@ -1,0 +1,50 @@
+name: AlkaAnvil
+version: '${version}'
+main: com.alkacode.anvil.AlkaAnvilPlugin
+api-version: '1.21'
+author: AlkaStudio
+description: Controla mecanicas da bigorna - custos, limites de encantamento, conflitos, reparo, disenchantment e estatisticas de itens. Substitui o CustomAnvil de terceiro.
+depend: [AlkaCore]
+softdepend: [AdvancedEnchantments, AlkaEconomy, PlaceholderAPI, LuckPerms]
+
+commands:
+  alkaanvil:
+    description: Comando principal do AlkaAnvil
+    usage: /alkaanvil <reload|info|config>
+    aliases: [anvil]
+    permission: alkaanvil.use
+
+permissions:
+  alkaanvil.use:
+    default: op
+    description: Usar o comando /alkaanvil
+  alkaanvil.reload:
+    default: op
+    description: Recarregar configuracao
+  alkaanvil.config:
+    default: op
+    description: Abrir a GUI de configuracao (/alkaanvil config)
+  alkaanvil.bypass.cost:
+    default: op
+    description: Bypassar limites de custo (max-cost / too-expensive)
+  alkaanvil.bypass.level:
+    default: op
+    description: Bypassar limites de nivel de encantamento
+  alkaanvil.bypass.conflict:
+    default: op
+    description: Bypassar conflitos de encantamento
+  alkaanvil.disenchant:
+    default: true
+    description: Usar disenchantment (item + livro em branco -> livro encantado)
+  alkaanvil.shatter:
+    default: true
+    description: Usar shatter (dividir livro com varios encantamentos)
+  alkaanvil.rename.color:
+    default: op
+    description: Usar codigos de cor no rename
+  alkaanvil.rename.hex:
+    default: op
+    description: Usar cores hex no rename
+  alkaanvil.rename.mm:
+    default: op
+    description: Usar tags MiniMessage completas no rename

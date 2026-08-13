@@ -1,0 +1,244 @@
+# AlkaAnvil - controle de mecanicas da bigorna
+# AdvancedEnchantments e softdepend: sem ele instalado, o AlkaAnvil ainda controla
+# custo/limite/conflito/disenchant de encantamentos vanilla normalmente - so os
+# encantamentos AE ficam indisponiveis (o AE valida seus proprios limites/conflitos
+# internamente quando presente, ver enchantment-limits/enchantment-conflicts abaixo).
+
+# ============================================================
+# LIMITES DE CUSTO
+# ============================================================
+cost-limits:
+  # Remove o limite de 40 niveis de XP ("Too Expensive"). O custo real continua
+  # sendo cobrado - isso so evita o item ficar preso no slot de resultado.
+  remove-too-expensive: true
+
+  # Cap maximo de custo em niveis de XP (0 = sem limite)
+  max-cost: 0
+
+  # Custo fixo de renomear um item (nao entra no multiplicador por encantamento)
+  rename-cost: 1
+
+  # Custo de reparar item com outro item igual (combina durabilidade)
+  item-repair-cost: 2
+
+  # Custo de reparar com unidade de material (por unidade consumida, ver unit-repair)
+  unit-repair-cost: 1
+
+# ============================================================
+# CUSTO POR ENCANTAMENTO (multiplicador nivel x valor, igual mecanica vanilla)
+# ============================================================
+# Custo de aplicar/combinar um encantamento = nivel_final x multiplicador.
+# "item" e o multiplicador quando a fonte do encantamento e um item (ex: espada
+# encantada), "book" quando a fonte e um livro encantado - livro sempre custa menos,
+# igual ao vanilla. Encantamento sem entrada aqui usa "default". Valores abaixo
+# replicam a mecanica vanilla (https://minecraft.wiki/w/Anvil_mechanics).
+enchant-values:
+  default:
+    item: 2
+    book: 1
+  minecraft:protection: {item: 1, book: 1}
+  minecraft:fire_protection: {item: 2, book: 1}
+  minecraft:feather_falling: {item: 2, book: 1}
+  minecraft:blast_protection: {item: 4, book: 2}
+  minecraft:projectile_protection: {item: 2, book: 1}
+  minecraft:thorns: {item: 8, book: 4}
+  minecraft:respiration: {item: 4, book: 2}
+  minecraft:depth_strider: {item: 4, book: 2}
+  minecraft:aqua_affinity: {item: 4, book: 2}
+  minecraft:sharpness: {item: 1, book: 1}
+  minecraft:smite: {item: 2, book: 1}
+  minecraft:bane_of_arthropods: {item: 2, book: 1}
+  minecraft:knockback: {item: 2, book: 1}
+  minecraft:fire_aspect: {item: 4, book: 2}
+  minecraft:looting: {item: 4, book: 2}
+  minecraft:sweeping_edge: {item: 4, book: 2}
+  minecraft:efficiency: {item: 1, book: 1}
+  minecraft:silk_touch: {item: 8, book: 4}
+  minecraft:unbreaking: {item: 2, book: 1}
+  minecraft:fortune: {item: 4, book: 2}
+  minecraft:power: {item: 1, book: 1}
+  minecraft:punch: {item: 4, book: 2}
+  minecraft:flame: {item: 4, book: 2}
+  minecraft:infinity: {item: 8, book: 4}
+  minecraft:luck_of_the_sea: {item: 4, book: 2}
+  minecraft:lure: {item: 4, book: 2}
+  minecraft:loyalty: {item: 1, book: 1}
+  minecraft:impaling: {item: 4, book: 2}
+  minecraft:riptide: {item: 4, book: 2}
+  minecraft:channeling: {item: 8, book: 4}
+  minecraft:multishot: {item: 4, book: 2}
+  minecraft:quick_charge: {item: 2, book: 1}
+  minecraft:piercing: {item: 1, book: 1}
+  minecraft:mending: {item: 4, book: 2}
+  minecraft:vanishing_curse: {item: 8, book: 4}
+  minecraft:binding_curse: {item: 8, book: 4}
+  minecraft:soul_speed: {item: 8, book: 4}
+  minecraft:swift_sneak: {item: 8, book: 4}
+  minecraft:density: {item: 2, book: 1}
+  minecraft:breach: {item: 4, book: 2}
+  minecraft:wind_burst: {item: 4, book: 2}
+
+# ============================================================
+# WORK PENALTY (penalidade de uso previo do item, dobra a cada uso vanilla)
+# ============================================================
+work-penalty:
+  # Como a penalidade dos dois itens de entrada se combina no resultado.
+  # SUM (soma, vanilla), MAX (maior dos dois), AVERAGE (media), NONE (desabilita)
+  merge-mode: SUM
+
+  # Penalidade extra fixa somada em toda operacao (0 = so a mecanica vanilla)
+  additive-penalty: 0
+
+# ============================================================
+# LIMITES DE ENCANTAMENTO (SO VANILLA - o AE valida os proprios limites)
+# ============================================================
+enchantment-limits:
+  # Limite maximo de encantamentos distintos por item (0 = sem limite)
+  max-enchants-per-item: 0
+
+  # Limite de nivel por encantamento vanilla, sobrescreve o maxLevel padrao do Bukkit
+  # (ex: permitir Sharpness VI). Encantamento nao listado usa o maxLevel vanilla normal.
+  per-enchant:
+    minecraft:protection: 4
+    minecraft:sharpness: 5
+
+# ============================================================
+# CONFLITOS DE ENCANTAMENTO (SO VANILLA - o AE valida os proprios conflitos)
+# ============================================================
+# Cada grupo: apenas UM encantamento da lista pode existir no item ao mesmo tempo.
+enchantment-conflicts:
+  groups:
+    - [minecraft:protection, minecraft:fire_protection, minecraft:blast_protection, minecraft:projectile_protection]
+    - [minecraft:sharpness, minecraft:smite, minecraft:bane_of_arthropods]
+    - [minecraft:fortune, minecraft:silk_touch]
+    - [minecraft:mending, minecraft:infinity]
+    - [minecraft:depth_strider, minecraft:frost_walker]
+    - [minecraft:multishot, minecraft:piercing]
+    - [minecraft:loyalty, minecraft:riptide]
+    - [minecraft:channeling, minecraft:riptide]
+
+# ============================================================
+# REPARO POR UNIDADE
+# ============================================================
+unit-repair:
+  # Materiais que reparam quais itens (formato: material_de_reparo: [itens])
+  materials:
+    DIAMOND: [DIAMOND_SWORD, DIAMOND_PICKAXE, DIAMOND_AXE, DIAMOND_SHOVEL, DIAMOND_HOE, DIAMOND_HELMET, DIAMOND_CHESTPLATE, DIAMOND_LEGGINGS, DIAMOND_BOOTS]
+    IRON_INGOT: [IRON_SWORD, IRON_PICKAXE, IRON_AXE, IRON_SHOVEL, IRON_HOE, IRON_HELMET, IRON_CHESTPLATE, IRON_LEGGINGS, IRON_BOOTS]
+    GOLD_INGOT: [GOLDEN_SWORD, GOLDEN_PICKAXE, GOLDEN_AXE, GOLDEN_SHOVEL, GOLDEN_HOE, GOLDEN_HELMET, GOLDEN_CHESTPLATE, GOLDEN_LEGGINGS, GOLDEN_BOOTS]
+    NETHERITE_INGOT: [NETHERITE_SWORD, NETHERITE_PICKAXE, NETHERITE_AXE, NETHERITE_SHOVEL, NETHERITE_HOE, NETHERITE_HELMET, NETHERITE_CHESTPLATE, NETHERITE_LEGGINGS, NETHERITE_BOOTS]
+    LEATHER: [LEATHER_HELMET, LEATHER_CHESTPLATE, LEATHER_LEGGINGS, LEATHER_BOOTS]
+    CHAINMAIL: [CHAINMAIL_HELMET, CHAINMAIL_CHESTPLATE, CHAINMAIL_LEGGINGS, CHAINMAIL_BOOTS]
+
+  # Fracao da durabilidade maxima recuperada por unidade consumida (0-1)
+  repair-per-unit: 0.25
+
+# ============================================================
+# CUSTO EM MOEDA (alternativa ao custo em XP, via AlkaEconomy)
+# ============================================================
+# Quando habilitado, a bigorna continua pedindo o custo normal de XP no slot
+# vanilla (limitacao deliberada: repintar o preco exigiria ProtocolLib, que so
+# e softdepend hoje - ver ALKANETWORKING.md) mas a operacao so e liberada de
+# verdade se o jogador tambem tiver saldo suficiente na moeda configurada - o
+# saldo e cobrado no momento em que o jogador retira o item do slot de resultado,
+# nao ao abrir a bigorna. Se o jogador nao tiver saldo, a retirada e cancelada e
+# uma mensagem e enviada, o XP nao e cobrado (o clique foi cancelado).
+monetary-cost:
+  enabled: false
+  currency: coins
+  # Multiplicadores por tipo de operacao - custo em moeda = custo_em_niveis_xp x multiplicador
+  multipliers:
+    enchantment: 10.0
+    repair: 5.0
+    rename: 5.0
+
+# ============================================================
+# CORES NO RENAME
+# ============================================================
+rename-colors:
+  enabled: true
+  require-permission: true
+  color-cost: 0
+  permissions:
+    code: alkaanvil.rename.color
+    hex: alkaanvil.rename.hex
+    minimessage: alkaanvil.rename.mm
+
+# ============================================================
+# DISENCHANTMENT (item + livro em branco -> livro encantado + item limpo)
+# ============================================================
+disenchant:
+  enabled: true
+  base-cost: 5
+  cost-per-enchant: 3
+  cost-per-level: 1
+  blacklist-materials: []
+  blacklist-enchants: []
+  require-permission: false
+  permission: alkaanvil.disenchant
+
+# ============================================================
+# SHATTER (livro com 2+ encantamentos -> 2 livros separados)
+# ============================================================
+shatter:
+  enabled: true
+  base-cost: 3
+  cost-per-level: 2
+  require-permission: false
+  permission: alkaanvil.shatter
+
+# ============================================================
+# ESTATISTICAS DE ITENS (PDC, sem tabela no banco - ver stats/ItemStatsManager)
+# ============================================================
+item-stats:
+  enabled: true
+
+  # Tag NBT necessaria pra rastrear (vazio = rastreia todos os itens aplicaveis)
+  required-tag: ""
+
+  lore:
+    enabled: true
+    position: BOTTOM
+    header: "<dark_gray>--- <gray>Estatisticas <dark_gray>---"
+    footer: "<dark_gray>---------------------"
+    format: "<gray><stat_name>: <yellow><value>"
+
+  stats:
+    weapons:
+      materials: [WOODEN_SWORD, STONE_SWORD, IRON_SWORD, GOLDEN_SWORD, DIAMOND_SWORD, NETHERITE_SWORD, TRIDENT, MACE]
+      track: [MOB_KILLS, PLAYER_KILLS, DAMAGE_DEALT]
+    pickaxes:
+      materials: [WOODEN_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLDEN_PICKAXE, DIAMOND_PICKAXE, NETHERITE_PICKAXE]
+      track: [BLOCKS_BROKEN, ORES_BROKEN]
+    axes:
+      materials: [WOODEN_AXE, STONE_AXE, IRON_AXE, GOLDEN_AXE, DIAMOND_AXE, NETHERITE_AXE]
+      track: [BLOCKS_BROKEN]
+    bows:
+      materials: [BOW, CROSSBOW]
+      track: [ARROWS_SHOT]
+    fishing:
+      materials: [FISHING_ROD]
+      track: [FISH_CAUGHT]
+
+  stat-names:
+    MOB_KILLS: "Abates de Mobs"
+    PLAYER_KILLS: "Abates de Jogadores"
+    DAMAGE_DEALT: "Dano Causado"
+    BLOCKS_BROKEN: "Blocos Quebrados"
+    ORES_BROKEN: "Minerios Quebrados"
+    ARROWS_SHOT: "Flechas Disparadas"
+    FISH_CAUGHT: "Peixes Pescados"
+
+# ============================================================
+# MENSAGENS
+# ============================================================
+messages:
+  prefix: "<dark_gray>[<#9B59B6>AlkaAnvil<dark_gray>] "
+  reload: "<green>Configuracao recarregada."
+  no-permission: "<red>Voce nao tem permissao."
+  player-only: "<red>Este comando e apenas para jogadores."
+  disenchant-success: "<green>Encantamentos extraidos com sucesso!"
+  shatter-success: "<green>Livro dividido com sucesso!"
+  not-enough-xp: "<red>Voce nao tem niveis de XP suficientes."
+  not-enough-currency: "<red>Voce nao tem saldo suficiente."
+  enchant-conflict: "<red>Esses encantamentos sao incompativeis entre si."
