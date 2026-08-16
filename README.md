@@ -42,8 +42,9 @@ plugins externos como o CustomAnvil.
 - 📊 **Estatísticas de item**: rastreamento de uso por categoria (armas,
   picaretas, machados, arcos, vara de pesca), com lore atualizada
   automaticamente.
-- 🖥️ **GUI de configuração** (`/alkaanvil config`): visualização rápida dos
-  valores atuais de cada seção.
+- 🖥️ **GUI de configuração** (`/alkaanvil config`): visualização e edição
+  dos valores de cada seção direto pela GUI, com entrada via chat para
+  campos numéricos e de texto.
 - 🎨 **Rename colorido com 3 níveis de permissão** (código de cor, hex ou
   MiniMessage completo).
 
