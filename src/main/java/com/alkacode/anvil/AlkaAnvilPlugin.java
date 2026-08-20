@@ -3,12 +3,15 @@ package com.alkacode.anvil;
 import com.alkacode.anvil.anvil.AnvilMergeLogic;
 import com.alkacode.anvil.anvil.PendingAnvilOperation;
 import com.alkacode.anvil.command.AlkaAnvilCommand;
+import com.alkacode.anvil.command.EnchantCommand;
 import com.alkacode.anvil.config.AnvilConfig;
 import com.alkacode.anvil.disenchant.DisenchantManager;
 import com.alkacode.anvil.economy.AlkaEconomyHook;
 import com.alkacode.anvil.enchant.AlkaEnchantmentRegistry;
 import com.alkacode.anvil.gui.AdminConfigGui;
+import com.alkacode.anvil.gui.ChatInputManager;
 import com.alkacode.anvil.listener.AnvilClickListener;
+import com.alkacode.anvil.listener.ChatInputListener;
 import com.alkacode.anvil.listener.PrepareAnvilListener;
 import com.alkacode.anvil.stats.ItemStatsListener;
 import com.alkacode.anvil.stats.ItemStatsManager;
@@ -38,6 +41,7 @@ public final class AlkaAnvilPlugin extends AlkaPlugin {
     private AnvilMergeLogic mergeLogic;
     private DisenchantManager disenchantManager;
     private ItemStatsManager itemStatsManager;
+    private final ChatInputManager chatInputManager = new ChatInputManager();
 
     @Override
     protected void onPluginEnable() {
@@ -49,10 +53,15 @@ public final class AlkaAnvilPlugin extends AlkaPlugin {
         getServer().getPluginManager().registerEvents(
                 new AnvilClickListener(this, config, this::getEconomyHook, pendingOperations), this);
         getServer().getPluginManager().registerEvents(new ItemStatsListener(config, this::getItemStatsManager), this);
+        getServer().getPluginManager().registerEvents(new ChatInputListener(this, chatInputManager), this);
 
         AlkaAnvilCommand command = new AlkaAnvilCommand(this, config);
         getCommand("alkaanvil").setExecutor(command);
         getCommand("alkaanvil").setTabCompleter(command);
+
+        EnchantCommand enchantCommand = new EnchantCommand(this, config);
+        getCommand("encantar").setExecutor(enchantCommand);
+        getCommand("encantar").setTabCompleter(enchantCommand);
 
         getLogger().info("AlkaAnvil habilitado (" + registry.all().size() + " encantamentos registrados).");
     }
@@ -98,6 +107,10 @@ public final class AlkaAnvilPlugin extends AlkaPlugin {
 
     public void openAdminGui(org.bukkit.entity.Player player) {
         new AdminConfigGui(this, player, config).open();
+    }
+
+    public ChatInputManager getChatInputManager() {
+        return chatInputManager;
     }
 
     /** AE pode ter mudado limites/enchants desde o ultimo load - reconstroi tudo, so nao re-registra listeners/comando. */

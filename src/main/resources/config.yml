@@ -145,7 +145,7 @@ unit-repair:
 # uma mensagem e enviada, o XP nao e cobrado (o clique foi cancelado).
 monetary-cost:
   enabled: false
-  currency: coins
+  currency: gold
   # Multiplicadores por tipo de operacao - custo em moeda = custo_em_niveis_xp x multiplicador
   multipliers:
     enchantment: 10.0
@@ -242,3 +242,12 @@ messages:
   not-enough-xp: "<red>Voce nao tem niveis de XP suficientes."
   not-enough-currency: "<red>Voce nao tem saldo suficiente."
   enchant-conflict: "<red>Esses encantamentos sao incompativeis entre si."
+  admin-prompt-int: "<yellow>Digite o novo valor no chat (numero inteiro):"
+  admin-prompt-double: "<yellow>Digite o novo valor no chat (numero, use ponto p/ decimal):"
+  admin-invalid-number: "<red>Valor invalido, o antigo foi mantido."
+  encant-usage: "<red>Uso: /encantar [tipo] <encantamento> [nivel] (tipos: espada, picareta, machado, enxada, pa, arco, tridente, moca, capacete, peitoral, calcas, botas, varinha, todos)"
+  encant-no-item: "<red>Segure um item na mao para encantar."
+  encant-unknown: "<red>Encantamento desconhecido."
+  encant-invalid-level: "<red>Nivel invalido."
+  encant-max-level: "<red>Nivel maximo desse encantamento e <max>."
+  encant-success: "<green>Encantamento <yellow><enchant> <level><green> aplicado!"

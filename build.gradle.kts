@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.alkacode"
-version = "1.0.2"
+version = "1.0.3"
 
 java {
     toolchain {
@@ -29,7 +29,7 @@ dependencies {
     // nao abre conexao JDBC propria nem registra o proprio GuiListener.
     compileOnly("com.alkacode:AlkaCore:1.0.3")
     // custo em moeda (alternativa ao custo em XP) usa qualquer moeda da AlkaEconomy.
-    compileOnly("com.alkacode:AlkaEconomy:1.0.6")
+    compileOnly("com.alkacode:AlkaEconomy:1.0.8")
     compileOnly("me.clip:placeholderapi:2.11.6")
     // AdvancedEnchantments e um plugin pago sem artefato Maven publico - integrado
     // 100% via reflection (ver enchant/AdvancedEnchantmentsWrapper), sem compileOnly.

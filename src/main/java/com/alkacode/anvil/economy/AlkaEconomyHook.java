@@ -41,4 +41,10 @@ public final class AlkaEconomyHook {
             economyManager.removeBalance(player.getUniqueId(), currencyId, amount);
         }
     }
+
+    /** Usado so pela GUI de admin pra ciclar monetary-cost.currency entre moedas reais - se
+     * AlkaEconomy nao estiver presente, retorna vazio e a GUI mantem o valor digitado a mao. */
+    public java.util.List<String> currencyIds() {
+        return isAvailable() ? economyManager.getCurrencyIds() : java.util.List.of();
+    }
 }

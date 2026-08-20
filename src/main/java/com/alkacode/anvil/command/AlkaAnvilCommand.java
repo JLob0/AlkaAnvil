@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 public final class AlkaAnvilCommand implements CommandExecutor, TabCompleter {
 
-    private static final List<String> SUBCOMMANDS = List.of("reload", "info", "config");
+    private static final List<String> SUBCOMMANDS = List.of("reload", "info", "config", "bigorna");
 
     private final AlkaAnvilPlugin plugin;
     private final AnvilConfig config;
@@ -44,6 +44,15 @@ public final class AlkaAnvilCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
+        if (args.length > 0 && args[0].equalsIgnoreCase("bigorna")) {
+            if (!(sender instanceof Player player)) {
+                send(sender, config.message("player-only"));
+                return true;
+            }
+            openVirtualAnvil(player);
+            return true;
+        }
+
         if (args.length > 0 && args[0].equalsIgnoreCase("config")) {
             if (!sender.hasPermission("alkaanvil.config")) {
                 send(sender, config.message("no-permission"));
@@ -57,7 +66,7 @@ public final class AlkaAnvilCommand implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        send(sender, "<yellow>Uso: /alkaanvil <reload|info|config>");
+        send(sender, "<yellow>Uso: /alkaanvil <reload|info|config|bigorna>");
         return true;
     }
 
@@ -72,5 +81,12 @@ public final class AlkaAnvilCommand implements CommandExecutor, TabCompleter {
 
     private void send(CommandSender sender, String miniMessage) {
         sender.sendMessage(MiniMessage.miniMessage().deserialize(config.prefix() + miniMessage));
+    }
+
+    /** openAnvil(Location, boolean) e deprecated mas nao tem substituto sem bloco real na API -
+     * mesmo padrao ja usado em AlkaVips#PerkCommands para /vipbigorna. */
+    @SuppressWarnings("deprecation")
+    private void openVirtualAnvil(Player player) {
+        player.openAnvil(null, true);
     }
 }

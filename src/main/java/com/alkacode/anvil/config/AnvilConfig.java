@@ -26,6 +26,14 @@ public final class AnvilConfig {
         this.config = plugin.getConfig();
     }
 
+    /** Grava um valor no config.yml em memoria + disco - o chamador ainda precisa
+     * disparar um rebuild (ver AlkaAnvilPlugin#reloadAll) pra qualquer estado que
+     * dependa de um snapshot tirado na construcao (ex: AlkaEnchantmentRegistry). */
+    public void set(String path, Object value) {
+        config.set(path, value);
+        plugin.saveConfig();
+    }
+
     // ---------------------------------------------------------------- cost-limits
 
     public boolean removeTooExpensive() {
@@ -152,7 +160,7 @@ public final class AnvilConfig {
     }
 
     public String monetaryCurrency() {
-        return config.getString("monetary-cost.currency", "coins");
+        return config.getString("monetary-cost.currency", "gold");
     }
 
     public double monetaryMultiplier(String operation) {
@@ -256,6 +264,12 @@ public final class AnvilConfig {
 
     public boolean itemStatsLoreOnTop() {
         return "TOP".equalsIgnoreCase(config.getString("item-stats.lore.position", "BOTTOM"));
+    }
+
+    /** So pra GUI de admin ciclar TOP/BOTTOM - {@link #itemStatsLoreOnTop()} continua a
+     * fonte de verdade usada pela renderizacao de lore em si. */
+    public String itemStatsLorePositionRaw() {
+        return config.getString("item-stats.lore.position", "BOTTOM").toUpperCase(java.util.Locale.ROOT);
     }
 
     public String itemStatsLoreHeader() {

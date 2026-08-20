@@ -10,14 +10,22 @@ softdepend: [AdvancedEnchantments, AlkaEconomy, PlaceholderAPI, LuckPerms]
 commands:
   alkaanvil:
     description: Comando principal do AlkaAnvil
-    usage: /alkaanvil <reload|info|config>
+    usage: /alkaanvil <reload|info|config|bigorna>
     aliases: [anvil]
     permission: alkaanvil.use
+  encantar:
+    description: Aplica um encantamento vanilla ou AE no item segurado.
+    aliases: [enchant, encantamento]
+    permission: alkaanvil.encant
+    usage: /encantar [tipo] <encantamento> [nivel]
 
 permissions:
   alkaanvil.use:
     default: op
     description: Usar o comando /alkaanvil
+  alkaanvil.encant:
+    default: op
+    description: Usar o comando /encantar
   alkaanvil.reload:
     default: op
     description: Recarregar configuracao
