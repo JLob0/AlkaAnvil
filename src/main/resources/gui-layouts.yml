@@ -1,0 +1,25 @@
+# AlkaAnvil - Layouts de GUI (posicoes configuraveis)
+# Regras:
+#   # = borda preta (preenche automatico via applyBorder)
+#   _ = vazio (nunca preenchido, nem por borda)
+#   Letras = slots controlados pelo Java (conteudo/acao fixa) - texto/icone de cada
+#            letra fica em menus.yml (chave descritiva, nao a letra em si)
+#   0 = slot de lista dinamica (campos da secao, quantidade variavel)
+
+alkaanvil-admin:
+  rows: 3
+  layout:
+    - "_________"
+    - "_ABCDEFG_"
+    - "_HI_____X"
+  # A=custo-limites B=encant-limites C=penalidade-uso D=reparo-unidade E=disenchant-shatter
+  # F=item-stats G=custo-moeda H=conflitos-encant I=cores-rename X=fechar
+
+alkaanvil-section:
+  rows: 4
+  layout:
+    - "_________"
+    - "_0000000_"
+    - "_0000000_"
+    - "____V____"
+  # 0=campo da secao (dinamico, ate 14), V=voltar

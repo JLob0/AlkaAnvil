@@ -1,0 +1,183 @@
+# ============================================================
+# AlkaAnvil - menus.yml
+# Titulos, icones (material), nomes e lores das GUIs de admin.
+# Placeholders entre {} sao trocados na hora. MiniMessage.
+# Layout/posicao dos slots fica em gui-layouts.yml - aqui e so
+# icone+texto, casado pelas mesmas chaves que o Java usa no setAt().
+# ============================================================
+
+common:
+  border:
+    material: BLACK_STAINED_GLASS_PANE
+    name: " "
+  voltar:
+    material: ARROW
+    name: "<red>Voltar"
+  fechar:
+    material: BARRIER
+    name: "<red>Fechar"
+
+alkaanvil-admin:
+  title: "<dark_gray>AlkaAnvil <gray>- Config"
+  custo-limites:
+    material: EXPERIENCE_BOTTLE
+    name: "<green>Limites de Custo"
+    lore:
+      - "<gray>remove-too-expensive, max-cost,"
+      - "<gray>rename-cost, item/unit-repair-cost"
+    section-title: "Limites de Custo"
+  encant-limites:
+    material: ENCHANTED_BOOK
+    name: "<green>Limites de Encantamento"
+    lore:
+      - "<gray>max-enchants-per-item"
+      - "<gray>(overrides por-encantamento: YAML)"
+    section-title: "Limites de Encantamento"
+  penalidade-uso:
+    material: ANVIL
+    name: "<green>Penalidade de Uso"
+    lore:
+      - "<gray>merge-mode, additive-penalty"
+    section-title: "Penalidade de Uso"
+  reparo-unidade:
+    material: DIAMOND
+    name: "<green>Reparo por Unidade"
+    lore:
+      - "<gray>repair-per-unit"
+      - "<gray>(materiais por item: YAML)"
+    section-title: "Reparo por Unidade"
+  disenchant-shatter:
+    material: BOOK
+    name: "<green>Disenchant / Shatter"
+    lore:
+      - "<gray>disenchant: <white>{disenchant-status}"
+      - "<gray>shatter: <white>{shatter-status}"
+    section-title: "Disenchant / Shatter"
+  item-stats:
+    material: PAPER
+    name: "<green>Estatisticas de Itens"
+    lore:
+      - "<gray>enabled, lore.enabled, lore.position"
+      - "<gray>(categorias/formato de lore: YAML)"
+    section-title: "Estatisticas de Itens"
+  custo-moeda:
+    material: GOLD_INGOT
+    name: "<green>Custo em Moeda"
+    lore:
+      - "<gray>enabled, moeda, multiplicadores"
+    section-title: "Custo em Moeda"
+  conflitos-encant:
+    material: OAK_FENCE
+    name: "<green>Conflitos de Encantamento"
+    lore:
+      - "<gray>grupos configurados: <white>{grupos}"
+      - ""
+      - "<gray>Lista de grupos - edite via config.yml"
+      - "<gray>+ /alkaanvil reload."
+  cores-rename:
+    material: INK_SAC
+    name: "<green>Cores no Rename"
+    lore:
+      - "<gray>enabled, require-permission, color-cost"
+    section-title: "Cores no Rename"
+
+alkaanvil-section:
+  fields:
+    cost-limits:
+      remove-too-expensive:
+        material: NAME_TAG
+        name: "<yellow>Remover Too Expensive"
+      max-cost:
+        material: EXPERIENCE_BOTTLE
+        name: "<yellow>Custo Maximo (XP)"
+      rename-cost:
+        material: NAME_TAG
+        name: "<yellow>Custo de Renomear"
+      item-repair-cost:
+        material: ANVIL
+        name: "<yellow>Custo Reparo (item+item)"
+      unit-repair-cost:
+        material: IRON_INGOT
+        name: "<yellow>Custo Reparo (material)"
+    enchantment-limits:
+      max-enchants-per-item:
+        material: ENCHANTED_BOOK
+        name: "<yellow>Max. Encantamentos por Item"
+    work-penalty:
+      merge-mode:
+        material: ANVIL
+        name: "<yellow>Modo de Combinacao"
+      additive-penalty:
+        material: REDSTONE
+        name: "<yellow>Penalidade Extra Fixa"
+    unit-repair:
+      repair-per-unit:
+        material: DIAMOND
+        name: "<yellow>Fracao Reparada por Unidade"
+    disenchant:
+      enabled:
+        material: LIME_DYE
+        name: "<yellow>Disenchant Ativo"
+      base-cost:
+        material: BOOK
+        name: "<yellow>Disenchant: Custo Base"
+      cost-per-enchant:
+        material: BOOK
+        name: "<yellow>Disenchant: Custo p/ Encant."
+      cost-per-level:
+        material: BOOK
+        name: "<yellow>Disenchant: Custo p/ Nivel"
+      require-permission:
+        material: TRIPWIRE_HOOK
+        name: "<yellow>Disenchant Requer Permissao"
+    shatter:
+      enabled:
+        material: LIME_DYE
+        name: "<yellow>Shatter Ativo"
+      base-cost:
+        material: BOOK
+        name: "<yellow>Shatter: Custo Base"
+      cost-per-level:
+        material: BOOK
+        name: "<yellow>Shatter: Custo p/ Nivel"
+      require-permission:
+        material: TRIPWIRE_HOOK
+        name: "<yellow>Shatter Requer Permissao"
+    item-stats:
+      enabled:
+        material: PAPER
+        name: "<yellow>Estatisticas Ativas"
+      lore:
+        enabled:
+          material: WRITABLE_BOOK
+          name: "<yellow>Lore de Estatisticas Ativa"
+        position:
+          material: COMPARATOR
+          name: "<yellow>Posicao da Lore"
+    monetary-cost:
+      enabled:
+        material: GOLD_INGOT
+        name: "<yellow>Custo em Moeda Ativo"
+      currency:
+        material: SUNFLOWER
+        name: "<yellow>Moeda"
+      multipliers:
+        enchantment:
+          material: ENCHANTED_BOOK
+          name: "<yellow>Multiplicador: Encantar"
+        repair:
+          material: ANVIL
+          name: "<yellow>Multiplicador: Reparar"
+        rename:
+          material: NAME_TAG
+          name: "<yellow>Multiplicador: Renomear"
+    rename-colors:
+      enabled:
+        material: INK_SAC
+        name: "<yellow>Cores no Rename Ativas"
+      require-permission:
+        material: TRIPWIRE_HOOK
+        name: "<yellow>Requer Permissao"
+      color-cost:
+        material: EXPERIENCE_BOTTLE
+        name: "<yellow>Custo de Usar Cor"

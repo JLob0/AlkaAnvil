@@ -5,11 +5,13 @@ import com.alkacode.anvil.anvil.PendingAnvilOperation;
 import com.alkacode.anvil.command.AlkaAnvilCommand;
 import com.alkacode.anvil.command.EnchantCommand;
 import com.alkacode.anvil.config.AnvilConfig;
+import com.alkacode.anvil.config.MenuConfig;
 import com.alkacode.anvil.disenchant.DisenchantManager;
 import com.alkacode.anvil.economy.AlkaEconomyHook;
 import com.alkacode.anvil.enchant.AlkaEnchantmentRegistry;
 import com.alkacode.anvil.gui.AdminConfigGui;
 import com.alkacode.anvil.gui.ChatInputManager;
+import com.alkacode.anvil.gui.layout.GuiLayoutLoader;
 import com.alkacode.anvil.listener.AnvilClickListener;
 import com.alkacode.anvil.listener.ChatInputListener;
 import com.alkacode.anvil.listener.PrepareAnvilListener;
@@ -42,10 +44,14 @@ public final class AlkaAnvilPlugin extends AlkaPlugin {
     private DisenchantManager disenchantManager;
     private ItemStatsManager itemStatsManager;
     private final ChatInputManager chatInputManager = new ChatInputManager();
+    private MenuConfig menuConfig;
+    private GuiLayoutLoader guiLayoutLoader;
 
     @Override
     protected void onPluginEnable() {
         config = new AnvilConfig(this);
+        menuConfig = new MenuConfig(this);
+        guiLayoutLoader = new GuiLayoutLoader(this);
         rebuild();
 
         getServer().getPluginManager().registerEvents(
@@ -113,9 +119,18 @@ public final class AlkaAnvilPlugin extends AlkaPlugin {
         return chatInputManager;
     }
 
+    public MenuConfig getMenuConfig() {
+        return menuConfig;
+    }
+
+    public GuiLayoutLoader getGuiLayoutLoader() {
+        return guiLayoutLoader;
+    }
+
     /** AE pode ter mudado limites/enchants desde o ultimo load - reconstroi tudo, so nao re-registra listeners/comando. */
     public void reloadAll() {
         config.reload();
+        menuConfig.reload();
         pendingOperations.clear();
         rebuild();
     }

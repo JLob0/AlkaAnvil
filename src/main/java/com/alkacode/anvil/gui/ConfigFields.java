@@ -1,5 +1,6 @@
 package com.alkacode.anvil.gui;
 
+import com.alkacode.anvil.AlkaAnvilPlugin;
 import com.alkacode.anvil.config.AnvilConfig;
 import org.bukkit.Material;
 
@@ -16,14 +17,31 @@ import java.util.function.Supplier;
  * campos que alimentam um snapshot tirado na construcao, ex: AlkaEnchantmentRegistry) e
  * se re-renderizar ou reabrir sozinho, sem o chamador precisar repetir esse fiapo em
  * cada secao de {@link AdminConfigGui}.
+ *
+ * <p>{@code path} e ao mesmo tempo a chave de config.yml (via {@link AnvilConfig#set})
+ * E a chave do icone em menus.yml.alkaanvil-section.fields.<path> (material+name) - R8:
+ * icone/texto do campo vem do YML, so o binding com o config.yml e logica em Java.
  */
 public final class ConfigFields {
+
+    private static final String FIELDS_PREFIX = "alkaanvil-section.fields.";
 
     private ConfigFields() {
     }
 
-    public static SectionEditGui.Field bool(String label, Material icon, AnvilConfig config, String path,
+    private static Material icon(AlkaAnvilPlugin anvilPlugin, String path) {
+        Material material = anvilPlugin.getMenuConfig().item(FIELDS_PREFIX + path, null).getType();
+        return material;
+    }
+
+    private static String label(AlkaAnvilPlugin anvilPlugin, String path) {
+        return anvilPlugin.getMenuConfig().name(FIELDS_PREFIX + path, null);
+    }
+
+    public static SectionEditGui.Field bool(AlkaAnvilPlugin anvilPlugin, AnvilConfig config, String path,
                                              BooleanSupplier getter) {
+        Material icon = icon(anvilPlugin, path);
+        String label = label(anvilPlugin, path);
         return new SectionEditGui.Field() {
             public String label() { return label; }
             public Material icon() { return icon; }
@@ -36,8 +54,10 @@ public final class ConfigFields {
         };
     }
 
-    public static SectionEditGui.Field intField(String label, Material icon, AnvilConfig config, String path,
+    public static SectionEditGui.Field intField(AlkaAnvilPlugin anvilPlugin, AnvilConfig config, String path,
                                                  IntSupplier getter) {
+        Material icon = icon(anvilPlugin, path);
+        String label = label(anvilPlugin, path);
         return new SectionEditGui.Field() {
             public String label() { return label; }
             public Material icon() { return icon; }
@@ -55,8 +75,10 @@ public final class ConfigFields {
         };
     }
 
-    public static SectionEditGui.Field doubleField(String label, Material icon, AnvilConfig config, String path,
+    public static SectionEditGui.Field doubleField(AlkaAnvilPlugin anvilPlugin, AnvilConfig config, String path,
                                                      DoubleSupplier getter) {
+        Material icon = icon(anvilPlugin, path);
+        String label = label(anvilPlugin, path);
         return new SectionEditGui.Field() {
             public String label() { return label; }
             public Material icon() { return icon; }
@@ -75,8 +97,10 @@ public final class ConfigFields {
     }
 
     /** Cicla entre valores fixos (ex: work-penalty.merge-mode) - sem chat, so clique repetido. */
-    public static SectionEditGui.Field enumCycle(String label, Material icon, AnvilConfig config, String path,
+    public static SectionEditGui.Field enumCycle(AlkaAnvilPlugin anvilPlugin, AnvilConfig config, String path,
                                                   List<String> options, Supplier<String> getter) {
+        Material icon = icon(anvilPlugin, path);
+        String label = label(anvilPlugin, path);
         return new SectionEditGui.Field() {
             public String label() { return label; }
             public Material icon() { return icon; }
@@ -94,8 +118,10 @@ public final class ConfigFields {
 
     /** Cicla entre as moedas reais do AlkaEconomy (monetary-cost.currency) - se o AlkaEconomy
      * nao estiver presente, cai pra um unico "sem moedas" e nao faz nada no clique. */
-    public static SectionEditGui.Field currencyCycle(String label, Material icon, AnvilConfig config, String path,
+    public static SectionEditGui.Field currencyCycle(AlkaAnvilPlugin anvilPlugin, AnvilConfig config, String path,
                                                        Supplier<String> getter, Supplier<List<String>> currencyIds) {
+        Material icon = icon(anvilPlugin, path);
+        String label = label(anvilPlugin, path);
         return new SectionEditGui.Field() {
             public String label() { return label; }
             public Material icon() { return icon; }
