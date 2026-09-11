@@ -9,6 +9,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Supplier;
@@ -114,7 +115,7 @@ public final class ItemStatsListener implements Listener {
         AnvilConfig.ItemStatsCategory category = manager.categoryOf(bow.getType());
         if (tracks(category, "ARROWS_SHOT")) {
             manager.incrementStat(bow, "ARROWS_SHOT", 1);
-            applyBack(player, bow);
+            applyBack(player, bow, event.getHand());
         }
     }
 
@@ -142,6 +143,20 @@ public final class ItemStatsListener implements Listener {
 
     /** ItemMeta#setItemMeta ja escreve no ItemStack passado, mas reescrever a mao garante persistencia mesmo em forks do Paper que copiam o retorno de getItemInMainHand(). */
     private void applyBack(Player player, ItemStack item) {
-        player.getInventory().setItemInMainHand(item);
+        applyBack(player, item, EquipmentSlot.HAND);
+    }
+
+    /**
+     * Mesma coisa, mas escrevendo na mao certa. onShootBow precisa disso porque o arco
+     * rastreado pode estar na offhand (EntityShootBowEvent#getHand()) - escrever sempre
+     * na mainhand duplicava o arco (aparecia um novo na mainhand, o original intacto
+     * continuava na offhand) e sumia com o que estivesse la (normalmente as flechas).
+     */
+    private void applyBack(Player player, ItemStack item, EquipmentSlot hand) {
+        if (hand == EquipmentSlot.OFF_HAND) {
+            player.getInventory().setItemInOffHand(item);
+        } else {
+            player.getInventory().setItemInMainHand(item);
+        }
     }
 }
