@@ -4,7 +4,7 @@ package com.alkacode.anvil.anvil;
  * Custo de uma operacao de bigorna. {@code currencyAmount} so e != 0 quando
  * monetary-cost esta habilitado no config - nesse modo o XP exibido na bigorna e
  * apenas simbolico (1 nivel, sempre pagavel) e o custo real e cobrado em moeda na
- * retirada do item, ver {@link com.alkacode.anvil.listener.AnvilClickListener}.
+ * confirmacao, ver {@link com.alkacode.anvil.gui.bigorna.BigornaMenu#confirm()}.
  */
 public record AnvilCost(int xpLevels, double currencyAmount, String currencyId) {
 

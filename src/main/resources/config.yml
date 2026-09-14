@@ -5,18 +5,20 @@
 # internamente quando presente, ver enchantment-limits/enchantment-conflicts abaixo).
 
 # ============================================================
+# PROTECAO DO BLOCO DE BIGORNA
+# ============================================================
+block-protection:
+  # Bigorna infinita: o bloco fisico nao pode ser quebrado (picareta) nem
+  # degradar/quebrar ao cair. Trazido do AlkaEssentials - o dominio de bigorna e
+  # 100% do AlkaAnvil agora. Bypass via permissao alkaanvil.bypass.break.
+  infinite: true
+
+# ============================================================
 # LIMITES DE CUSTO
 # ============================================================
 cost-limits:
-  # Remove o limite de 40 niveis de XP ("Too Expensive"). O custo real continua
-  # sendo cobrado - isso so evita o item ficar preso no slot de resultado.
-  remove-too-expensive: true
-
   # Cap maximo de custo em niveis de XP (0 = sem limite)
   max-cost: 0
-
-  # Custo fixo de renomear um item (nao entra no multiplicador por encantamento)
-  rename-cost: 1
 
   # Custo de reparar item com outro item igual (combina durabilidade)
   item-repair-cost: 2
@@ -136,13 +138,10 @@ unit-repair:
 # ============================================================
 # CUSTO EM MOEDA (alternativa ao custo em XP, via AlkaEconomy)
 # ============================================================
-# Quando habilitado, a bigorna continua pedindo o custo normal de XP no slot
-# vanilla (limitacao deliberada: repintar o preco exigiria ProtocolLib, que so
-# e softdepend hoje - ver ALKANETWORKING.md) mas a operacao so e liberada de
-# verdade se o jogador tambem tiver saldo suficiente na moeda configurada - o
-# saldo e cobrado no momento em que o jogador retira o item do slot de resultado,
-# nao ao abrir a bigorna. Se o jogador nao tiver saldo, a retirada e cancelada e
-# uma mensagem e enviada, o XP nao e cobrado (o clique foi cancelado).
+# Quando habilitado, a operacao so e liberada se o jogador tambem tiver saldo
+# suficiente na moeda configurada - o saldo e cobrado no momento em que o jogador
+# confirma a operacao na GUI da bigorna (nao ha custo simbolico de XP junto, so a
+# moeda). Sem saldo, a confirmacao e cancelada e uma mensagem e enviada.
 monetary-cost:
   enabled: false
   currency: gold
@@ -150,19 +149,6 @@ monetary-cost:
   multipliers:
     enchantment: 10.0
     repair: 5.0
-    rename: 5.0
-
-# ============================================================
-# CORES NO RENAME
-# ============================================================
-rename-colors:
-  enabled: true
-  require-permission: true
-  color-cost: 0
-  permissions:
-    code: alkaanvil.rename.color
-    hex: alkaanvil.rename.hex
-    minimessage: alkaanvil.rename.mm
 
 # ============================================================
 # DISENCHANTMENT (item + livro em branco -> livro encantado + item limpo)

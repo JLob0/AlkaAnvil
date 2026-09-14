@@ -20,11 +20,11 @@ import java.util.Map;
  * mono-encantamento por design, `getBookEnchantment` retorna so um).
  *
  * <p>Ambas as operacoes trocam o item da ESQUERDA por um item diferente do que o
- * jogador retira do slot de resultado (disenchant: livro extraido no slot 2, item
- * limpo "sobra" pro jogador; shatter: livro extraido no slot 2, livro remanescente
- * "sobra"). A bigorna vanilla so suporta 1 saida - ver
- * {@link com.alkacode.anvil.listener.AnvilClickListener} pra como o item que
- * "sobra" e devolvido ao slot 0 um tick depois do jogador retirar o resultado.
+ * jogador recebe (disenchant: livro extraido + item limpo "sobra"; shatter: livro
+ * extraido + livro remanescente "sobra"). A GUI propria da bigorna
+ * ({@link com.alkacode.anvil.gui.bigorna.BigornaMenu}) entrega os dois direto no
+ * inventario do jogador ao confirmar, sem a limitacao de slot unico da AnvilInventory
+ * vanilla.
  */
 public final class DisenchantManager {
 

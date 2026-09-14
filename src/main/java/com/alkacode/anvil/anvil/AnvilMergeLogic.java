@@ -4,7 +4,6 @@ import com.alkacode.anvil.config.AnvilConfig;
 import com.alkacode.anvil.economy.AlkaEconomyHook;
 import com.alkacode.anvil.enchant.AlkaEnchantment;
 import com.alkacode.anvil.enchant.AlkaEnchantmentRegistry;
-import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -17,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Logica central de merge/rename/reparo da bigorna. Simplificacao deliberada em
+ * Logica central de merge/reparo da bigorna. Simplificacao deliberada em
  * relacao ao vanilla real: penalidades de encantamento ilegal nao geram um custo
  * adicional separado (o encantamento conflitante e simplesmente descartado do
  * resultado) - o CustomAnvil real tem um `sacrifice_illegal_enchant_cost` pra isso,
@@ -40,7 +39,7 @@ public final class AnvilMergeLogic {
     public record MergeResult(ItemStack item, AnvilCost cost, AnvilUseType useType) {
     }
 
-    public MergeResult compute(Player player, ItemStack left, ItemStack right, String renameText) {
+    public MergeResult compute(Player player, ItemStack left, ItemStack right) {
         if (left == null || left.getType().isAir()) {
             return null;
         }
@@ -48,19 +47,6 @@ public final class AnvilMergeLogic {
         ItemStack result = left.clone();
         int xpCost = 0;
         AnvilUseType useType = null;
-
-        // ---------------------------------------------------------------- rename
-        String currentName = plainName(result);
-        boolean renaming = renameText != null && !renameText.isBlank() && !renameText.equals(currentName);
-        if (renaming) {
-            boolean usedColorTag = RenameSanitizer.hasColorTag(renameText);
-            applyRename(player, result, renameText);
-            xpCost += config.renameCost();
-            if (usedColorTag) {
-                xpCost += config.renameColorCost();
-            }
-            useType = AnvilUseType.RENAME;
-        }
 
         // ---------------------------------------------------------------- right-hand item
         if (right != null && !right.getType().isAir()) {
@@ -262,23 +248,6 @@ public final class AnvilMergeLogic {
             }
         }
         return result;
-    }
-
-    private void applyRename(Player player, ItemStack item, String rawName) {
-        Component name = net.kyori.adventure.text.minimessage.MiniMessage.miniMessage()
-                .deserialize(RenameSanitizer.sanitize(config, player, rawName));
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(name);
-        item.setItemMeta(meta);
-    }
-
-    private String plainName(ItemStack item) {
-        ItemMeta meta = item.getItemMeta();
-        if (meta == null || !meta.hasDisplayName()) {
-            return null;
-        }
-        Component name = meta.displayName();
-        return name != null ? net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText().serialize(name) : null;
     }
 
     private int repairCostOf(ItemStack item) {

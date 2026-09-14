@@ -23,8 +23,7 @@ alkaanvil-admin:
     material: EXPERIENCE_BOTTLE
     name: "<green>Limites de Custo"
     lore:
-      - "<gray>remove-too-expensive, max-cost,"
-      - "<gray>rename-cost, item/unit-repair-cost"
+      - "<gray>max-cost, item/unit-repair-cost"
     section-title: "Limites de Custo"
   encant-limites:
     material: ENCHANTED_BOOK
@@ -74,25 +73,52 @@ alkaanvil-admin:
       - ""
       - "<gray>Lista de grupos - edite via config.yml"
       - "<gray>+ /alkaanvil reload."
-  cores-rename:
-    material: INK_SAC
-    name: "<green>Cores no Rename"
+
+alkaanvil-bigorna:
+  title: "<dark_gray>Bigorna"
+  vazio:
+    material: BARRIER
+    name: "<gray>Coloque os itens"
+  custo-vazio:
+    material: ANVIL
+    name: "<gray>Custo da Operacao"
     lore:
-      - "<gray>enabled, require-permission, color-cost"
-    section-title: "Cores no Rename"
+      - "<dark_gray>Aguardando itens..."
+  custo-suficiente:
+    material: EXPERIENCE_BOTTLE
+    name: "<gold>Custo da Operacao"
+    lore:
+      - "<gray>Necessario: <yellow>{necessario}"
+      - "<gray>Voce tem: <white>{tenho}"
+      - ""
+      - "<green>Voce tem o suficiente"
+      - "<gray>Vai sobrar: <white>{sobra}"
+  custo-insuficiente:
+    material: REDSTONE
+    name: "<red>Custo da Operacao"
+    lore:
+      - "<gray>Necessario: <yellow>{necessario}"
+      - "<gray>Voce tem: <white>{tenho}"
+      - ""
+      - "<red>Faltam <white>{falta}"
+  custo-bypass:
+    material: NETHER_STAR
+    name: "<light_purple>Custo da Operacao"
+    lore:
+      - "<gray>Necessario: <yellow>{necessario}"
+      - ""
+      - "<light_purple>Bypass ativo - operacao gratis"
+  resultado-confirmar:
+    lore:
+      - ""
+      - "<green>Clique para confirmar"
 
 alkaanvil-section:
   fields:
     cost-limits:
-      remove-too-expensive:
-        material: NAME_TAG
-        name: "<yellow>Remover Too Expensive"
       max-cost:
         material: EXPERIENCE_BOTTLE
         name: "<yellow>Custo Maximo (XP)"
-      rename-cost:
-        material: NAME_TAG
-        name: "<yellow>Custo de Renomear"
       item-repair-cost:
         material: ANVIL
         name: "<yellow>Custo Reparo (item+item)"
@@ -168,16 +194,3 @@ alkaanvil-section:
         repair:
           material: ANVIL
           name: "<yellow>Multiplicador: Reparar"
-        rename:
-          material: NAME_TAG
-          name: "<yellow>Multiplicador: Renomear"
-    rename-colors:
-      enabled:
-        material: INK_SAC
-        name: "<yellow>Cores no Rename Ativas"
-      require-permission:
-        material: TRIPWIRE_HOOK
-        name: "<yellow>Requer Permissao"
-      color-cost:
-        material: EXPERIENCE_BOTTLE
-        name: "<yellow>Custo de Usar Cor"

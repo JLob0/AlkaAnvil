@@ -50,8 +50,6 @@ public final class AdminConfigGui extends AnvilGui {
         setAt(layout, 'H', icon("conflitos-encant",
                 Map.of("grupos", String.valueOf(config.enchantConflictGroups().size()))));
 
-        setAt(layout, 'I', icon("cores-rename"), e -> openSection("cores-rename", renameColorsFields()));
-
         setAt(layout, 'X', menu().item("common.fechar", null), event -> event.getWhoClicked().closeInventory());
     }
 
@@ -66,9 +64,7 @@ public final class AdminConfigGui extends AnvilGui {
 
     private List<SectionEditGui.Field> costLimitsFields() {
         return List.of(
-                ConfigFields.bool(anvilPlugin, config, "cost-limits.remove-too-expensive", config::removeTooExpensive),
                 ConfigFields.intField(anvilPlugin, config, "cost-limits.max-cost", config::maxCost),
-                ConfigFields.intField(anvilPlugin, config, "cost-limits.rename-cost", config::renameCost),
                 ConfigFields.intField(anvilPlugin, config, "cost-limits.item-repair-cost", config::itemRepairCost),
                 ConfigFields.intField(anvilPlugin, config, "cost-limits.unit-repair-cost", config::unitRepairCost)
         );
@@ -125,17 +121,7 @@ public final class AdminConfigGui extends AnvilGui {
                 ConfigFields.doubleField(anvilPlugin, config, "monetary-cost.multipliers.enchantment",
                         () -> config.monetaryMultiplier("enchantment")),
                 ConfigFields.doubleField(anvilPlugin, config, "monetary-cost.multipliers.repair",
-                        () -> config.monetaryMultiplier("repair")),
-                ConfigFields.doubleField(anvilPlugin, config, "monetary-cost.multipliers.rename",
-                        () -> config.monetaryMultiplier("rename"))
-        );
-    }
-
-    private List<SectionEditGui.Field> renameColorsFields() {
-        return List.of(
-                ConfigFields.bool(anvilPlugin, config, "rename-colors.enabled", config::renameColorsEnabled),
-                ConfigFields.bool(anvilPlugin, config, "rename-colors.require-permission", config::renameRequirePermission),
-                ConfigFields.intField(anvilPlugin, config, "rename-colors.color-cost", config::renameColorCost)
+                        () -> config.monetaryMultiplier("repair"))
         );
     }
 }

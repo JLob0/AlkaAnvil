@@ -2,6 +2,7 @@ package com.alkacode.anvil.command;
 
 import com.alkacode.anvil.AlkaAnvilPlugin;
 import com.alkacode.anvil.config.AnvilConfig;
+import com.alkacode.anvil.gui.bigorna.BigornaMenu;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -49,7 +50,7 @@ public final class AlkaAnvilCommand implements CommandExecutor, TabCompleter {
                 send(sender, config.message("player-only"));
                 return true;
             }
-            openVirtualAnvil(player);
+            new BigornaMenu(plugin, player).open();
             return true;
         }
 
@@ -81,12 +82,5 @@ public final class AlkaAnvilCommand implements CommandExecutor, TabCompleter {
 
     private void send(CommandSender sender, String miniMessage) {
         sender.sendMessage(MiniMessage.miniMessage().deserialize(config.prefix() + miniMessage));
-    }
-
-    /** openAnvil(Location, boolean) e deprecated mas nao tem substituto sem bloco real na API -
-     * mesmo padrao ja usado em AlkaVips#PerkCommands para /vipbigorna. */
-    @SuppressWarnings("deprecation")
-    private void openVirtualAnvil(Player player) {
-        player.openAnvil(null, true);
     }
 }

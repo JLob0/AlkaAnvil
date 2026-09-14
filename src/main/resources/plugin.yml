@@ -41,18 +41,12 @@ permissions:
   alkaanvil.bypass.conflict:
     default: op
     description: Bypassar conflitos de encantamento
+  alkaanvil.bypass.break:
+    default: op
+    description: Quebrar/derrubar o bloco de bigorna mesmo com block-protection.infinite ativo
   alkaanvil.disenchant:
-    default: true
+    default: op
     description: Usar disenchantment (item + livro em branco -> livro encantado)
   alkaanvil.shatter:
-    default: true
+    default: op
     description: Usar shatter (dividir livro com varios encantamentos)
-  alkaanvil.rename.color:
-    default: op
-    description: Usar codigos de cor no rename
-  alkaanvil.rename.hex:
-    default: op
-    description: Usar cores hex no rename
-  alkaanvil.rename.mm:
-    default: op
-    description: Usar tags MiniMessage completas no rename

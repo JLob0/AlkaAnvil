@@ -34,18 +34,16 @@ public final class AnvilConfig {
         plugin.saveConfig();
     }
 
-    // ---------------------------------------------------------------- cost-limits
+    // ---------------------------------------------------------------- block-protection
 
-    public boolean removeTooExpensive() {
-        return config.getBoolean("cost-limits.remove-too-expensive", true);
+    public boolean anvilBlockInfinite() {
+        return config.getBoolean("block-protection.infinite", true);
     }
+
+    // ---------------------------------------------------------------- cost-limits
 
     public int maxCost() {
         return config.getInt("cost-limits.max-cost", 0);
-    }
-
-    public int renameCost() {
-        return config.getInt("cost-limits.rename-cost", 1);
     }
 
     public int itemRepairCost() {
@@ -165,20 +163,6 @@ public final class AnvilConfig {
 
     public double monetaryMultiplier(String operation) {
         return config.getDouble("monetary-cost.multipliers." + operation, 1.0);
-    }
-
-    // ---------------------------------------------------------------- rename-colors
-
-    public boolean renameColorsEnabled() {
-        return config.getBoolean("rename-colors.enabled", true);
-    }
-
-    public boolean renameRequirePermission() {
-        return config.getBoolean("rename-colors.require-permission", true);
-    }
-
-    public int renameColorCost() {
-        return config.getInt("rename-colors.color-cost", 0);
     }
 
     // ---------------------------------------------------------------- disenchant / shatter

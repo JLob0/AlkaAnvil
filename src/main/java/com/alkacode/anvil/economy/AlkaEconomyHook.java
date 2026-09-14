@@ -36,6 +36,14 @@ public final class AlkaEconomyHook {
                 && economyManager.has(player.getUniqueId(), currencyId, amount);
     }
 
+    /** Saldo atual do jogador na moeda - usado so pra exibir no preview de custo da bigorna. */
+    public double getBalance(Player player, String currencyId) {
+        if (!isAvailable() || !economyManager.isValidCurrency(currencyId)) {
+            return 0;
+        }
+        return economyManager.getBalance(player.getUniqueId(), currencyId);
+    }
+
     public void remove(Player player, String currencyId, double amount) {
         if (isAvailable()) {
             economyManager.removeBalance(player.getUniqueId(), currencyId, amount);

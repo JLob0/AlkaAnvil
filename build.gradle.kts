@@ -2,11 +2,12 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     java
+    `maven-publish`
     id("com.gradleup.shadow") version "8.3.5"
 }
 
 group = "com.alkacode"
-version = "1.0.4"
+version = "1.0.5"
 
 java {
     toolchain {
@@ -55,5 +56,16 @@ tasks.processResources {
 
         expand("version" to project.version)
 
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            artifactId = "AlkaAnvil"
+            version = project.version.toString()
+            from(components["java"])
+        }
     }
 }
